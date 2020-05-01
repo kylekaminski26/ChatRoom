@@ -18,9 +18,9 @@ public class Server {
 	private static Set<String> clients = new HashSet<>();
 	private static Set<PrintWriter> chatters = new HashSet<>();
 	private static int roomSize = 0;
+	final static int PORT = 1023; // Port that will be used for the socket communication.
 
 	public static void main(String[] args) throws Exception {
-		final int PORT = 1023; // Port that will be used for the socket communication.
 		System.out.println("The server is currently running on Port " + PORT + "...");
 		System.out.println("Current chat room size: " + roomSize);
 		ExecutorService room = Executors.newFixedThreadPool(127);
@@ -32,11 +32,12 @@ public class Server {
 
 	private static class Handler implements Runnable {
 		private String clientName;
+		private String clientIP = "127.0.0.1";
 		private Socket socket;
 		private PrintWriter out;
 		private Scanner sc;
 
-		public Handler(Socket s) {
+		protected Handler(Socket s) {
 			socket = s;
 		}
 
@@ -63,21 +64,25 @@ public class Server {
 								Date time = new Date();
 								System.out.println(clientName + " has joined on " + dateFormat.format(date) + " at "
 										+ timeFormat.format(time));
+								System.out.println("Currently communicating on port " + PORT + ".");
+								System.out.println(clientName + "'s IP Address: " + clientIP + ".");
 								System.out.println("Current chat room size: " + roomSize);
 								break;
 							}
 						}
 					}
 					out.println("Accepted " + clientName);
-					for (PrintWriter writer : chatters) {
+					for (PrintWriter chatLog : chatters) {
 						DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 						DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss.SSS");
 						Date date = new Date();
 						Date time = new Date();
-						writer.println("ChatRoom " + clientName + " has joined on " + dateFormat.format(date) + " at "
+						chatLog.println("ChatRoom " + clientName + " has joined on " + dateFormat.format(date) + " at "
 								+ timeFormat.format(time));
 						// roomSize++;
-						writer.println("ChatRoom " + "Size of chat room: " + roomSize + ".");
+						chatLog.println("Currently communicating on port " + PORT + ".");
+						chatLog.println(clientName + "'s IP Address: " + clientIP + ".");
+						chatLog.println("ChatRoom " + "Size of chat room: " + roomSize + ".");
 					}
 					chatters.add(out);
 					while (true) {
@@ -131,6 +136,26 @@ public class Server {
 
 	public int getRoomSize() {
 		return roomSize;
+	}
+
+	public static Set<String> getClients() {
+		return clients;
+	}
+
+	public static void setClients(Set<String> clients) {
+		Server.clients = clients;
+	}
+
+	public static Set<PrintWriter> getChatters() {
+		return chatters;
+	}
+
+	public static void setChatters(Set<PrintWriter> chatters) {
+		Server.chatters = chatters;
+	}
+
+	public static int getPort() {
+		return PORT;
 	}
 
 	public void setRoomSize(int i) {
