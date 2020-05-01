@@ -20,7 +20,7 @@ public class Client {
 	String serverAddress = "127.0.0.1"; // Default local IP address for Google Chrome / PCs
 	Scanner in = new Scanner(System.in);
 	PrintWriter out;
-	JFrame frame = new JFrame("Jeff & Kyle's Chat Room");
+	JFrame frame = new JFrame("Kyle & Jeff's Chat Room");
 	JTextField textField = new JTextField(75);
 	JTextArea messageArea = new JTextArea(24, 50);
 	boolean first = true;
@@ -29,7 +29,6 @@ public class Client {
 	public static void main(String[] args) throws Exception {
 		Client c = new Client();
 		c.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
 	    // Start JFRAME customization
 	    c.frame.setSize(800, 450);
 	    c.frame.setLocationRelativeTo(null);
@@ -41,9 +40,7 @@ public class Client {
 	    c.frame.setResizable(false);
 //	    c.frame.setDefaultLookAndFeelDecorated(true);
 	    // End JFRAME customization
-	    
 	    c.frame.pack();
-	    
 		c.connect();
 		socket.close();
 	}
@@ -59,10 +56,6 @@ public class Client {
 				textField.setText("");
 			}
 		});
-	}
-
-	private String getName() {
-		return JOptionPane.showInputDialog(frame, "Enter name:", "Name", JOptionPane.PLAIN_MESSAGE);
 	}
 
 	private void connect() throws IOException {
@@ -92,4 +85,73 @@ public class Client {
 			frame.dispose();
 		}
 	}
+	
+	public String getName() {
+		return JOptionPane.showInputDialog(frame, "Enter name:", "Name", JOptionPane.PLAIN_MESSAGE);
+	}
+	
+	public String getServerAddress() {
+		return serverAddress;
+	}
+	
+	public void setServerAddress(String s) {
+		serverAddress = s;
+	}
+
+	public Scanner getIn() {
+		return in;
+	}
+
+	public void setIn(Scanner in) {
+		this.in = in;
+	}
+
+	public PrintWriter getOut() {
+		return out;
+	}
+
+	public void setOut(PrintWriter out) {
+		this.out = out;
+	}
+
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
+	}
+
+	public JTextField getTextField() {
+		return textField;
+	}
+
+	public void setTextField(JTextField textField) {
+		this.textField = textField;
+	}
+
+	public JTextArea getMessageArea() {
+		return messageArea;
+	}
+
+	public void setMessageArea(JTextArea messageArea) {
+		this.messageArea = messageArea;
+	}
+
+	public boolean isFirst() {
+		return first;
+	}
+
+	public void setFirst(boolean first) {
+		this.first = first;
+	}
+
+	public static Socket getSocket() {
+		return socket;
+	}
+
+	public static void setSocket(Socket socket) {
+		Client.socket = socket;
+	}
+	
 }
