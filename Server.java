@@ -137,28 +137,4 @@ public class Server {
 	public int getRoomSize() {
 		return roomSize;
 	}
-
-	public static Set<String> getClients() {
-		return clients;
-	}
-
-	public static void setClients(Set<String> clients) {
-		Server.clients = clients;
-	}
-
-	public static Set<PrintWriter> getChatters() {
-		return chatters;
-	}
-
-	public static void setChatters(Set<PrintWriter> chatters) {
-		Server.chatters = chatters;
-	}
-
-	public static int getPort() {
-		return PORT;
-	}
-
-	public void setRoomSize(int i) {
-		roomSize = i;
-	}
 }
